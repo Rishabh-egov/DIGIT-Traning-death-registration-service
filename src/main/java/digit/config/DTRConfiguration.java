@@ -21,8 +21,10 @@ import java.util.TimeZone;
 @Setter
 @Getter
 public class DTRConfiguration {
+
     @Value("${app.timezone}")
     private String timeZone;
+
     // User Config
     @Value("${egov.user.host}")
     private String userHost;
@@ -34,11 +36,13 @@ public class DTRConfiguration {
     private String userSearchEndpoint;
     @Value("${egov.user.update.path}")
     private String userUpdateEndpoint;
+
     //Idgen Config
     @Value("${egov.idgen.host}")
     private String idGenHost;
     @Value("${egov.idgen.path}")
     private String idGenPath;
+
     //Workflow Config
     @Value("${egov.workflow.host}")
     private String wfHost;
@@ -55,7 +59,6 @@ public class DTRConfiguration {
     @Value("${dtr.kafka.update.topic}")
     private String updateTopic;
 
-
     // dtr Variables
     @Value("${dtr.default.offset}")
     private Integer defaultOffset;
@@ -63,11 +66,17 @@ public class DTRConfiguration {
     private Integer defaultLimit;
     @Value("${dtr.search.max.limit}")
     private Integer maxLimit;
+    @Value("${kafka.producer.create.topic}")
+    private String dtrCreateTopic;
+    @Value("${kafka.producer.update.topic}")
+    private String dtrUpdateTopic;
+
     //MDMS
     @Value("${egov.mdms.host}")
     private String mdmsHost;
     @Value("${egov.mdms.search.endpoint}")
     private String mdmsEndPoint;
+
     //HRMS
     @Value("${egov.hrms.host}")
     private String hrmsHost;

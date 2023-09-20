@@ -53,10 +53,8 @@ public class DeathApplicationEnrichment {
     }
 
     public void enrichDeathApplicationUponUpdate(DeathRegistrationRequest DeathRegistrationRequest) {
-//        System.out.println(DeathRegistrationRequest.getRequestInfo());
         // Enrich lastModifiedTime and lastModifiedBy in case of update
         DeathRegistrationRequest.getDeathRegistrationApplications().get(0).getAuditDetails().setLastModifiedTime(System.currentTimeMillis());
-        // FIXME: set last modified time
         DeathRegistrationRequest.getDeathRegistrationApplications().get(0).getAuditDetails().setLastModifiedBy(DeathRegistrationRequest.getRequestInfo().getUserInfo().getUuid());
     }
 

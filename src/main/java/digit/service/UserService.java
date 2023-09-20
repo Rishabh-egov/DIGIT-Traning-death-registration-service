@@ -64,7 +64,6 @@ public class UserService {
 
     private User createFatherUser(DeathRegistrationApplication application) {
         Applicant father = application.getApplicant();
-//        System.out.println("UserName of applicant is "+father.getUserName());
         User user = User.builder().userName(father.getUserName())
                 .mobileNumber(father.getMobileNumber())
                 .emailId(father.getEmailId())
@@ -75,7 +74,6 @@ public class UserService {
                 .build();
         user.setName(application.getApplicant().getName());
         String tenantId = father.getTenantId();
-//        System.out.println("UserName of user is "+user.getUserName());
         return user;
     }
 
@@ -88,8 +86,6 @@ public class UserService {
         UserDetailResponse userDetailResponse = searchUser(userUtils.getStateLevelTenant(tenantId), null, user.getMobileNumber());
         if (!userDetailResponse.getUser().isEmpty()) {
             System.out.println("Something is found about the user");
-//            System.out.println("User Detail Response is: " + new ObjectMapper().writeValueAsString(userDetailResponse));
-            System.out.println(userDetailResponse.getUser().get(0));
             User userFromSearch = userDetailResponse.getUser().get(0);
             log.info(userFromSearch.toString());
             if (!user.getUserName().equalsIgnoreCase(userFromSearch.getUserName())) {
@@ -100,7 +96,6 @@ public class UserService {
             } else userServiceResponse = userDetailResponse.getUser().get(0);
         } else {
             System.out.println("Couldn't found user so creating a one instead");
-//            System.out.println("Request Info is:"+requestInfo.toString());
             userServiceResponse = createUser(requestInfo, tenantId, user);
         }
 
@@ -113,21 +108,13 @@ public class UserService {
 
     private void enrichUser(DeathRegistrationApplication application, RequestInfo requestInfo) throws JsonProcessingException {
         String accountIdFather = application.getApplicant().getUuid();
-//        String accountIdMother = application.getId();
-//        System.out.println(accountIdFather + "---------------ACCOUNT ID");
         String tenantId = application.getApplicant().getTenantId();
 
         UserDetailResponse userDetailResponseFather = searchUser(userUtils.getStateLevelTenant(tenantId), accountIdFather, application.getApplicant().getUserName());
-//        UserDetailResponse userDetailResponseMother = searchUser(userUtils.getStateLevelTenant(tenantId),accountIdMother,null);
         if (userDetailResponseFather.getUser().isEmpty())
             throw new CustomException("INVALID_ACCOUNTID", "No user exist for the given accountId");
 
         else application.setId(userDetailResponseFather.getUser().get(0).getUuid());
-
-//        if(userDetailResponseMother.getUser().isEmpty())
-//            throw new CustomException("INVALID_ACCOUNTID","No user exist for the given accountId");
-//
-//        else application.setId(userDetailResponseMother.getUser().get(0).getUuid());
 
     }
 
@@ -153,7 +140,6 @@ public class UserService {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-//        System.out.println("-----------username---------------------------------------"+user.getUser().getMobileNumber());
         log.info(user.getUser().toString());
         UserDetailResponse userDetailResponse = userUtils.userCall(user, uri);
 
